@@ -15,7 +15,7 @@ from compas.geometry import Point
 from compas.geometry import Translation
 from compas.geometry import Vector
 from compas.itertools import flatten
-from OCC.Core.Geom import Geom_BSplineSurface
+from OCC.Core.Geom import Geom_BSplineSurface, Geom_Surface
 from OCC.Core.Geom import Geom_Plane
 from OCC.Core.GeomAbs import GeomAbs_C2
 from OCC.Core.GeomAPI import GeomAPI_PointsToBSplineSurface
@@ -36,6 +36,7 @@ from compas_occ.conversions import points2_from_array2
 from compas_occ.geometry import OCCNurbsCurve
 
 from .surface import OCCSurface
+from ..._occ_algo.occ_to_bspline import occ_surf_to_bspline
 
 
 class ControlPoints:
@@ -536,3 +537,6 @@ class OCCNurbsSurface(OCCSurface, NurbsSurface):
         """
         cls = type(self)
         return cls.__from_data__(deepcopy(self.__data__))
+    @classmethod
+    def from_occ(cls, native_surface) -> "OCCNurbsSurface":
+        return cls.from_native(occ_surf_to_bspline(native_surface))

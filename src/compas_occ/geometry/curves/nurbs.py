@@ -13,7 +13,7 @@ from compas.geometry import NurbsCurve
 from compas.geometry import Point
 
 # from OCC.Core.TopoDS import TopoDS_Edge
-from OCC.Core.Geom import Geom_BSplineCurve
+from OCC.Core.Geom import Geom_BSplineCurve, Geom_Curve
 from OCC.Core.GeomAPI import GeomAPI_Interpolate
 from OCC.Core.GeomConvert import GeomConvert_CompCurveToBSplineCurve
 from OCC.Core.TColgp import TColgp_Array1OfPnt
@@ -28,6 +28,7 @@ from compas_occ.conversions import point_to_compas
 from compas_occ.conversions import points1_from_array1
 
 from .curve import OCCCurve
+from ..._occ_algo.occ_to_bspline import occ_curve_to_bspline
 
 
 def native_curve_from_parameters(
@@ -572,3 +573,6 @@ class OCCNurbsCurve(OCCCurve, NurbsCurve):
         if success:
             copy.native_curve = converter.BSplineCurve()
             return copy
+    @classmethod
+    def from_occ(cls, native_curve: Geom_Curve) -> "OCCCurve":
+        return cls.from_native(occ_curve_to_bspline(native_curve))

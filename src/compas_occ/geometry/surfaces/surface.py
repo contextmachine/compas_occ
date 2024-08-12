@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import List
 from typing import Optional
 from typing import Tuple
@@ -20,7 +21,7 @@ from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
 from OCC.Core.Geom import Geom_Line
 from OCC.Core.Geom import Geom_Surface
 from OCC.Core.GeomAdaptor import GeomAdaptor_Surface
-from OCC.Core.GeomAPI import GeomAPI_IntCS
+from OCC.Core.GeomAPI import GeomAPI_IntCS, GeomAPI_IntSS
 from OCC.Core.GeomAPI import GeomAPI_ProjectPointOnSurf
 from OCC.Core.GeomLProp import GeomLProp_SLProps
 from OCC.Core.gp import gp_Pnt
@@ -30,6 +31,7 @@ from OCC.Core.TopoDS import TopoDS_Face
 from OCC.Core.TopoDS import TopoDS_Shape
 from OCC.Core.TopoDS import topods
 
+from compas_occ._occ_algo.ssx import ssx
 from compas_occ.conversions import ax3_to_compas
 from compas_occ.conversions import direction_to_compas
 from compas_occ.conversions import line_to_occ
@@ -512,3 +514,19 @@ class OCCSurface(Surface):
             point = point_to_compas(pnt)
             points.append(point)
         return points
+
+    def intersections_with_surface(self, other: OCCSurface, tol=1e-7) -> List[OCCCurve]:
+        """Compute the intersections with a surface.
+
+        Parameters
+        ----------
+        curve : :class:`compas_occ.geometry.OCCSurface`
+        tol: float, optional default 1e-7
+
+        Returns
+        -------
+        list[:class:`compas_occ.geometry.OCCCurve`]
+
+        """
+
+        return list(ssx(self.native_surface, other.native_surface, tol))
