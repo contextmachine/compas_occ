@@ -520,7 +520,7 @@ class OCCSurface(Surface):
 
         Parameters
         ----------
-        curve : :class:`compas_occ.geometry.OCCSurface`
+        other : :class:`compas_occ.geometry.OCCSurface`
         tol: float, optional default 1e-7
 
         Returns

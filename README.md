@@ -1,4 +1,5 @@
-# COMPAS OCC
+# COMPAS OCC (FORK)
+
 
 ![build](https://github.com/compas-dev/compas_occ/workflows/build/badge.svg)
 [![GitHub - License](https://img.shields.io/github/license/compas-dev/compas_occ.svg)](https://github.com/compas-dev/compas_occ)
@@ -7,7 +8,11 @@
 [![Conda - Latest Release](https://anaconda.org/conda-forge/compas_occ/badges/version.svg)](https://anaconda.org/conda-forge/compas_occ)
 [![Conda - Platform](https://img.shields.io/conda/pn/conda-forge/compas_occ)](https://anaconda.org/conda-forge/compas_occ)
 
+
+> **Important**: This fork adds an implementation of the `OCCCurve.intersections_with_surface` method that performs the intersection of two surfaces and returns a list of curves (`OCCCurve`) of the intersection.
+
 COMPAS wrapper for the Python bindings (`pythonocc-core`) of the 3D geometry kernel of Open Cascade.
 
 More info coming soon.
 In the meantime, see the docs at <https://compas.dev/compas_occ/latest/index.html>.
+
